@@ -61,26 +61,34 @@ O **Chat Service** é responsável pela comunicação em tempo real entre os usu
 - Java 21 ou superior.
 - Maven 3.9.9 ou superior.
 - PostgreSQL configurado com as credenciais:
-  - **Usuário:** ``
-  - **Senha:** ``
+  - **Usuário:** `seuUsuario`
+  - **Senha:** `suaSenha`
   - **Banco de dados:** `chat_db`
 
 ### Passos
 1. Clone o repositório:
    ```bash
    git clone <link>
-   cd real-time-chat
-2. Configure o banco de dados PostgreSQL:
+   cd Quick-Chat-using-WebSockets
+   ```
+2. Crie um arquivo `.env` na raíz do projeto como o arquivo `.env.exemple`.
+3. Configure o banco de dados PostgreSQL:
 - Crie o banco de dados chat_db.
-- Certifique-se de que as credenciais no arquivo .env estão corretas.
-3. Compile e execute os serviços:
+- Certifique-se de que as credenciais no arquivo `.env` estão corretas.
+4. Compile e execute os serviços:
 - **User Service**:
    ```bash
    cd user-service
    ./mvnw spring-boot:run
-4. Acesse os serviços:
-- User Service: http://localhost:8081
+   ```
+- **Chat Service**:
+   ```bash
+   cd user-service
+   ./mvnw spring-boot:run
+   ```
+5. Acesse os serviços:
 - Chat Service: http://localhost:8080
+- User Service: http://localhost:8081
 
 ## Estrutura do Projeto
 ```bash
@@ -110,6 +118,7 @@ real-time-chat/
 │   │   └── test/
 │   ├── pom.xml
 │   └── .mvn/
+```
 
-#### Observações
-O frontend está disponível nos arquivos HTML e JavaScript localizados na pasta `static` de cada serviço.
+### Observações
+O frontend está disponível nos arquivo HTML localizado na pasta `static` do serviço de chat.
