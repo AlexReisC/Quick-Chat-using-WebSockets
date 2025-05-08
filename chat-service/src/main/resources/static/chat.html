@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>QuickChat</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
+  <style>
+    body { font-family: Arial; margin: 20px; }
+    #chat { border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: scroll; margin-bottom: 10px; }
+    input, button { padding: 5px; }
+  </style>
+</head>
+<body>
+  <h2>QuickChat - WebSocket</h2>
+
+  <label>Token JWT:</label><br>
+  <input type="text" id="token" size="80"><br><br>
+
+  <label>Seu nome de usuário:</label><br>
+  <input type="text" id="username"><br><br>
+
+  <button onclick="connect()">Conectar</button><br><br>
+
+  <div id="chat"></div>
+
+  <input type="text" id="message" placeholder="Digite sua mensagem..." size="50">
+  <button onclick="sendMessage()">Enviar</button>
+
+  <script>
+    let stompClient = null;
+    let username = "";
+    console.log(typeof Stomp !== "undefined" ? "STOMP carregado" : "STOMP não carregado");
+
+    function connect() {
+      const token = document.getElementById("token").value;
+      username = document.getElementById("username").value;
+
+      if (!token || !username) {
+        alert("Informe o token JWT e o nome de usuário");
+        return;
+      }
+
+      const socket = new SockJS("http://localhost:8080/ws-chat");
+      stompClient = Stomp.over(socket);
+
+      // Adiciona o token no header STOMP
+      stompClient.connect({ Authorization: `Bearer ${token}` }, function (frame) {
+        console.log("Conectado:", frame);
+        document.getElementById("chat").innerHTML += "<b>Conectado como " + username + "</b><br>";
+
+        stompClient.subscribe("/topic/public", function (message) {
+          const msg = JSON.parse(message.body);
+          const line = `[${msg.timestamp}] <b>${msg.sender}</b>: ${msg.content || msg.type}`;
+          document.getElementById("chat").innerHTML += line + "<br>";
+          document.getElementById("chat").scrollTop = document.getElementById("chat").scrollHeight;
+        });
+
+        stompClient.send("/app/chat.addUser", {}, JSON.stringify({ sender: username }));
+      });
+    }
+
+    function sendMessage() {
+      const content = document.getElementById("message").value;
+      if (!stompClient || !content) return;
+
+      stompClient.send("/app/chat.sendMessage", {}, JSON.stringify({
+        sender: username,
+        content: content
+      }));
+      document.getElementById("message").value = "";
+    }
+  </script>
+</body>
+</html>
