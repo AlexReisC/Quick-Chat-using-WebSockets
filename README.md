@@ -83,6 +83,7 @@ O **Chat Service** é responsável pela comunicação em tempo real entre os usu
 - Chat Service: http://localhost:8080
 
 ## Estrutura do Projeto
+```bash
 real-time-chat/
 ├── .env
 ├── README.md
