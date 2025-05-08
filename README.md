@@ -3,8 +3,6 @@
 ## Descrição
 O projeto **Real-Time Chat** é uma aplicação composta por dois serviços principais: **User Service** e **Chat Service**. Ele permite que usuários se registrem, façam login e participem de salas de bate-papo em tempo real utilizando WebSockets. A autenticação é baseada em JWT (JSON Web Token), garantindo segurança nas comunicações.
 
----
-
 ## Funcionalidades
 - Registro de usuários com validação de dados.
 - Login de usuários com geração de token JWT.
@@ -12,8 +10,6 @@ O projeto **Real-Time Chat** é uma aplicação composta por dois serviços prin
 - Comunicação em tempo real via WebSockets.
 - Envio de mensagens públicas e privadas.
 - Gerenciamento de conexões WebSocket (entrada e saída de usuários).
-
----
 
 ## Serviços
 
@@ -35,8 +31,6 @@ O **User Service** é responsável pela autenticação e gerenciamento de usuár
 - PostgreSQL Driver
 - JJWT (JSON Web Token)
 
----
-
 ### Chat Service
 O **Chat Service** é responsável pela comunicação em tempo real entre os usuários. Ele utiliza WebSockets para permitir o envio de mensagens públicas e privadas.
 
@@ -52,8 +46,6 @@ O **Chat Service** é responsável pela comunicação em tempo real entre os usu
 - Spring Boot Starter Web
 - Spring Boot Starter WebSocket
 - Spring Boot Starter JSON
-
----
 
 ## Como Executar
 
