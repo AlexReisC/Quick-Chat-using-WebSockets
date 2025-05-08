@@ -5,12 +5,21 @@ import java.time.LocalDateTime;
 public class ChatMessage {
     private String content;
     private String sender;
+    private String recipient;
     private String room;
     private LocalDateTime timestamp;
     private MessageType type;
-
+    
     public enum MessageType {
         CHAT, JOIN, LEAVE
+    }
+    
+    public String getRecipient() {
+        return recipient;
+    }
+
+    public void setRecipient(String recipient) {
+        this.recipient = recipient;
     }
 
     public String getContent() {
